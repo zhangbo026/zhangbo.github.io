@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+		<title>森巢网</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/commodityDetail.css">
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	</head>
+	<body class="commodityList-back">
+		<!--公用头部-->
+		<header class="header">
+			<span class="sp-back" onclick="history.go(-1)"></span>
+			<span class="title">商品详情</span>
+			<span class="sp-right"></span>
+		</header>
+		 <!--主要内容-->
+		<section class="main-content">
+			<!--轮播-->
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="images/index/1488016747-1676319493.jpg" /></div>
+					<div class="swiper-slide"><img src="images/index/1488350938-1879339224.jpg" /></div>
+					<div class="swiper-slide"><img src="images/index/1488248319-623813167.jpg" /></div>
+					<div class="swiper-slide"><img src="images/index/1488191264-1488305946.jpg" /></div>
+				</div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<h2 class="goods-title">【迪那沙发】G-12# 实木真皮沙发  涡卷纹扶手欧式沙发 实木沙发 真皮贵族风格沙发</h2>
+			<div class="commondity-price">
+				<div class="market-price">市场价：62800.00</div>
+				<div class="prices">森巢价：<span id="J_prices">&yen;51900.00</span></div>
+			</div>
+			<!--规格和商品-->
+			<div class="specs-content">
+				<p>请选择规格</p>
+				<ul class="standards-list" id="J_standardsList">
+					<li>
+						<span class="specs-list"  data-price="￥41900">2000*1800床(不含床头柜)</span>
+					</li>
+					<li>
+						<span class="specs-list"  data-price="￥34800">8016#床头柜</span>
+					</li>	
+					<li>
+						<span class="specs-list"  data-price="￥29400">2000*1500床 (不含床头柜)</span>
+					</li>	
+				</ul>
+				<div class="commondity-number">
+					<span class="number">数量</span>
+					<div class="change-inputnum">
+				  		<a href="javascript:;" class="btn-left" onclick="operateNumber(1)"></a>
+				  		<input type="text" id="J_numberInput" value="1">
+				  		<a href="javascript:;" class="btn-right" onclick="operateNumber(2)"></a>
+				  		<span class="stock">(库存：<font id="kuncun" data-stock="500">500</font>)</span>
+					</div>
+				</div>
+			</div>
+			<div class="advert-picture"><img src="images/commodityDetail/wap_kuangh.jpg"></div>
+			<div class="btn-show-goodinfo shoucang">收藏产品</div>
+			<div class="commodity-picture-list">
+				<img src="images/commodityDetail/1446712582-2130714666.jpg" />
+				<img src="images/commodityDetail/1446712586-1561533285.jpg" />
+				<img src="images/commodityDetail/1446712587-1520659481.jpg" />
+				<img src="images/commodityDetail/1446712591-2054592141.jpg" />
+				<img src="images/commodityDetail/1446712592-1326495669.jpg" />
+				<img src="images/commodityDetail/1446712594-343314127.jpg" />
+				<img src="images/commodityDetail/info_01.jpg" />
+				<img src="images/commodityDetail/info_02.jpg" />
+			</div>
+		</section>
+		<!--公用底部-->
+		<footer>
+			<div class="footer">
+				<a href="tel:13893425943" class="btn-tel"></a>
+				<a href="sms:13893425943" class="btn-msg"></a>
+				<a href="/home/cart/accountcart.html" class="btn-mycart">
+					购物车
+					<span id="cartnums">0</span>
+				</a>
+				<a href="cart.html" onclick="addtocart();" class="btn-addcart">加入购物车</a>
+			</div>
+		</footer>
+	</body>
+
+</html>
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script src="../../动态页/js/all.js"></script>
+<script type="text/javascript">
+	var mySwiper = new Swiper('.swiper-container', {
+		pagination: '.swiper-pagination',
+		loop: true,
+		autoplay: 3000,
+		paginationHide: true,
+		paginationClickable: true,
+	})
+	
+	//规格选项卡
+	tabSize() ;
+	function tabSize() {
+		//事件委托
+		var standards = document.querySelector("#J_standardsList");
+		var jPrices = document.querySelector("#J_prices");
+		var tabSizeList = document.querySelectorAll("#J_standardsList .specs-list");
+		standards.onclick = function(e){
+			var e = event || window.event;
+			if(e.target.nodeName.toLowerCase() == "span"){
+				var price = e.target.getAttribute("data-price");
+				jPrices.innerHTML = price + ".00";
+	          //移出当前的class
+				jquery.removeClass(tabSizeList,"seled");
+	          //添加当前的class
+				jquery.addClass(e.target,"seled");
+			}
+		}
+		
+	}
+	
+	//商品数量的加减
+	var nd_number = document.getElementById("J_numberInput");//获取输入框数值的变化
+	//获取库存
+	var nd_stock = document.getElementById("kuncun");//获取库存数
+	//商品加减
+	function operateNumber(type){
+		var nd_value = parseInt(nd_number.value);
+		//获取库存属性值  总库存
+		var data_stock = parseInt(nd_stock.getAttribute("data-stock"));
+		//状态值
+		var state;
+		//商品减
+		if(type == 1){
+			//判断商品当前数量是否小于最小商品数量
+			state = nd_value >= 1 ? true : false; 
+			if(state) {
+				//商品数量减
+				nd_value--;
+				//商品数量赋值
+				nd_number.value = nd_value;
+				//库存数量赋值
+				nd_stock.innerHTML = data_stock - nd_value;
+			} else {
+				alert("你够了");
+			}
+		} else { // 商品加
+			state = nd_value < data_stock ? true : false; 
+			if(state) {
+				nd_value++;
+				nd_number.value = nd_value;
+				nd_stock.innerHTML = data_stock - nd_value;
+			} else {
+				alert("没库存");
+			}
+		}
+	}
+	
+	
+</script>
